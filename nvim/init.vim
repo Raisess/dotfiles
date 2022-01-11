@@ -23,6 +23,7 @@ Plug 'hrsh7th/vim-vsnip'
 
 call plug#end()
 
+set signcolumn=yes
 set noswapfile
 set nobackup
 set nowritebackup
@@ -49,7 +50,7 @@ set textwidth=0 wrapmargin=0
 set shortmess+=c
 set nocursorcolumn
 set nocursorline
-set relativenumber
+set norelativenumber
 syntax sync minlines=256
 
 set statusline=
@@ -162,9 +163,9 @@ local function on_attach(client, bufnr)
 end
 
 lsp_installer.on_server_ready(function(server)
-    server:setup{
+    server:setup({
       capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
       on_attach = on_attach,
-    }
+    })
 end)
 EOF
