@@ -7,7 +7,7 @@ Plug 'junegunn/fzf.vim'
 
 " colors
 Plug 'pantharshit00/vim-prisma'
-Plug 'morhetz/gruvbox'
+"Plug 'morhetz/gruvbox'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " lsp
@@ -66,9 +66,10 @@ let g:netrw_banner=0
 let g:netrw_liststyle=3
 let g:fzf_preview_window=[]
 
-let g:gruvbox_contrast_dark='hard'
-let g:gruvbox_invert_selection='0'
-colorscheme gruvbox
+"let g:gruvbox_contrast_dark='hard'
+"let g:gruvbox_invert_selection='0'
+"colorscheme gruvbox
+colorscheme koehler
 
 if !has('gui_running')
   set t_Co=256
