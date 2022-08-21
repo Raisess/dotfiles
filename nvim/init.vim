@@ -23,6 +23,7 @@ Plug 'hrsh7th/vim-vsnip'
 
 call plug#end()
 
+set mouse=a
 set signcolumn=yes
 set noswapfile
 set nobackup
