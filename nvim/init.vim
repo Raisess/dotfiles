@@ -105,6 +105,7 @@ inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
 
 set completeopt=menu,menuone,noselect
+autocmd BufEnter * lua vim.lsp.diagnostic.disable()
 
 lua <<EOF
 require('nvim-treesitter.configs').setup {
