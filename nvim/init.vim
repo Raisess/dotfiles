@@ -35,6 +35,7 @@ set cindent
 set autoindent
 set smartindent
 set tabstop=2
+set softtabstop=2
 set shiftwidth=2
 set expandtab
 set background=dark
@@ -92,8 +93,8 @@ noremap <silent> <C-p> :GFiles<CR>
 noremap <silent> <C-o> :W<CR>
 
 " LSP
-noremap <silent> <C-k> :lua vim.lsp.diagnostic.goto_prev()<CR>
-noremap <silent> <C-j> :lua vim.lsp.diagnostic.goto_next()<CR>
+"noremap <silent> <C-k> :lua vim.lsp.diagnostic.goto_prev()<CR>
+"noremap <silent> <C-j> :lua vim.lsp.diagnostic.goto_next()<CR>
 
 " Auto close brackets
 inoremap " ""<left>
@@ -105,7 +106,6 @@ inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
 
 set completeopt=menu,menuone,noselect
-autocmd BufEnter * lua vim.lsp.diagnostic.disable()
 
 lua <<EOF
 require('nvim-treesitter.configs').setup {
@@ -172,4 +172,6 @@ lsp_installer.on_server_ready(function(server)
       on_attach = on_attach,
     })
 end)
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
 EOF
