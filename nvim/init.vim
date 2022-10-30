@@ -12,7 +12,8 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " lsp
 Plug 'neovim/nvim-lspconfig'
-Plug 'williamboman/nvim-lsp-installer'
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
 
 " cmp
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -112,9 +113,11 @@ require("nvim-treesitter.configs").setup({
   }
 })
 
+require("mason").setup()
+require("mason-lspconfig").setup()
+
 local cmp = require("cmp")
 local cmp_lsp = require("cmp_nvim_lsp")
-local lsp_installer = require("nvim-lsp-installer")
 local nvim_lsp = require("lspconfig")
 
 cmp.setup({
@@ -164,12 +167,12 @@ local function on_attach(client, bufnr)
   buf_set_keymap("n", "gh", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
 end
 
-lsp_installer.on_server_ready(function(server)
-  server:setup({
-    capabilities = cmp_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-    on_attach = on_attach,
-  })
-end)
+local attach_cfg = {
+  capabilities = cmp_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  on_attach = on_attach,
+}
+
+nvim_lsp["clangd"].setup(attach_cfg)
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
 EOF
