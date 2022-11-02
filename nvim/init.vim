@@ -17,7 +17,6 @@ Plug 'williamboman/mason-lspconfig.nvim'
 
 " cmp
 Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp'
 
 call plug#end()
@@ -119,6 +118,7 @@ require("mason-lspconfig").setup()
 local cmp = require("cmp")
 local cmp_lsp = require("cmp_nvim_lsp")
 local nvim_lsp = require("lspconfig")
+local util = require("lspconfig.util")
 
 cmp.setup({
   formatting = {
@@ -132,20 +132,13 @@ cmp.setup({
       return vim_item
     end
   },
-  snippet = {
-    expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
-    end,
-  },
   mapping = {
+    ["<C-e>"] = cmp.mapping.close(),
     ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
     ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-    ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-    ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete(),
-    ["<C-e>"] = cmp.mapping.close(),
     ["<CR>"] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
@@ -154,25 +147,28 @@ cmp.setup({
   sources = {
     { name = "buffer" },
     { name = "nvim_lsp" },
-    { name = "path" },
   }
 })
 
 local function on_attach(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local opts = { noremap=true, silent=true }
+  local opts = {
+    noremap = true,
+    silent = true,
+    buffer = bufnr
+  }
 
-  buf_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-  buf_set_keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
-  buf_set_keymap("n", "gh", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
+  vim.keymap.set("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+  vim.keymap.set("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
+  vim.keymap.set("n", "gh", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
 end
 
-local attach_cfg = {
-  capabilities = cmp_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-  on_attach = on_attach,
-}
+local default_capabilities = cmp_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-nvim_lsp["clangd"].setup(attach_cfg)
+nvim_lsp["clangd"].setup({
+  capabilities = default_capabilities,
+  on_attach = on_attach,
+  cmd = { "clangd", "-j=1", "--background-index", "--malloc-trim" },
+})
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
 EOF
