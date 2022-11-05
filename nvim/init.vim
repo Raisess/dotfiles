@@ -173,5 +173,13 @@ nvim_lsp["clangd"].setup({
   cmd = { "clangd", "-j=1", "--background-index", "--malloc-trim" },
 })
 
+nvim_lsp["pylsp"].setup({
+  capabilities = default_capabilities,
+  on_attach = on_attach,
+  root_dir = function(fname)
+    return util.find_git_ancestor(fname)
+  end,
+})
+
 vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
 EOF
