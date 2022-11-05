@@ -167,6 +167,9 @@ local default_capabilities = cmp_lsp.default_capabilities(vim.lsp.protocol.make_
 nvim_lsp["clangd"].setup({
   capabilities = default_capabilities,
   on_attach = on_attach,
+  root_dir = function(fname)
+    return util.find_git_ancestor(fname)
+  end,
   cmd = { "clangd", "-j=1", "--background-index", "--malloc-trim" },
 })
 
