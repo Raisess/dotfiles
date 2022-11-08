@@ -66,8 +66,8 @@ let g:netrw_banner=0
 let g:netrw_liststyle=3
 let g:fzf_preview_window=[]
 
-let g:gruvbox_contrast_dark='hard'
-let g:gruvbox_invert_selection='0'
+let g:gruvbox_contrast_dark="hard"
+let g:gruvbox_invert_selection="0"
 colorscheme gruvbox
 
 if !has('gui_running')
