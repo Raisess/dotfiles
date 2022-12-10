@@ -28,14 +28,14 @@ set nobackup
 set nowritebackup
 set number
 set cmdheight=1
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
 set smarttab
 set cindent
 set autoindent
 set smartindent
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
-set expandtab
 set background=dark
 set noerrorbells
 set updatetime=500
@@ -179,6 +179,7 @@ nvim_lsp["pylsp"].setup({
   root_dir = function(fname)
     return util.find_git_ancestor(fname)
   end,
+  cmd = { "jedi-language-server" },
 })
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
