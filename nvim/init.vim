@@ -62,6 +62,8 @@ set statusline+=%=                                   " right align remainder
 set statusline+=%-14(%l,%c%V%)                       " line, character
 set statusline+=%<%P\                                " file position
 
+let g:python_recommended_style=0
+
 let g:netrw_banner=0
 let g:netrw_liststyle=3
 let g:fzf_preview_window=[]
