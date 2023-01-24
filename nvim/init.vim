@@ -87,6 +87,8 @@ noremap <silent> gb :tabprevious<CR>
 noremap <silent> <C-a> :Prettier<CR>
 noremap <silent> <C-b> :Explore<CR>
 noremap <silent> <C-f> :Vexplore<CR>
+noremap <silent> <C-n> :split term://zsh<CR>:set nonu<CR>
+tnoremap <Esc> <C-\><C-n>
 
 " FZF
 noremap <silent> <C-p> :GFiles<CR>
