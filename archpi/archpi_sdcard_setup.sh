@@ -1,9 +1,11 @@
 #! /usr/bin/env bash
 
+# @DESCRIPTION: This script installs an Arch Linux ARM into an SDCard
+
 DEVICE=$1
 IMAGE=$2
 
-echo "ArchPI | DEVICE: $DEVICE / IMAGE: $IMAGE"
+echo "ArchPI SDCard Setup | DEVICE: $DEVICE / IMAGE: $IMAGE"
 
 echo ">>> Downloding dependencies..."
 sudo pacman -S parted dosfstools
