@@ -4,8 +4,8 @@
 # as a home server.
 # @NOTE: To be executed in the raspberry pi (su mode).
 
-TOOLS_PATH=~/tools
-SERVICES_PATH=~/services
+TOOLS_PATH=/home/$USER/tools
+SERVICES_PATH=/home/$USER/services
 
 echo "ArchPI Server Setup | TOOLS_PATH: $TOOLS_PATH / SERVICES_PATH: $SERVICES_PATH"
 
