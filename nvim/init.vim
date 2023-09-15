@@ -53,6 +53,8 @@ set nocursorline
 set norelativenumber
 syntax sync minlines=256
 
+au BufNewFile,BufRead *.ejs set filetype=html
+
 set statusline=
 set statusline+=\ Vimmer\ \                          " fun name
 set statusline+=%f\                                  " filename
@@ -62,7 +64,10 @@ set statusline+=%=                                   " right align remainder
 set statusline+=%-14(%l,%c%V%)                       " line, character
 set statusline+=%<%P\                                " file position
 
+let g:netrw_list_hide = '__pycache__/'
+
 let g:python_recommended_style=0
+let g:rust_recommended_style=0
 
 let g:netrw_banner=0
 let g:netrw_liststyle=3
@@ -184,6 +189,22 @@ nvim_lsp["pylsp"].setup({
     return util.find_git_ancestor(fname)
   end,
   cmd = { "jedi-language-server" },
+})
+
+nvim_lsp["rust_analyzer"].setup({
+  capabilities = default_capabilities,
+  on_attach = on_attach,
+  root_dir = function(fname)
+    return util.find_git_ancestor(fname)
+  end,
+})
+
+nvim_lsp["tsserver"].setup({
+  capabilities = default_capabilities,
+  on_attach = on_attach,
+  root_dir = function(fname)
+    return util.find_git_ancestor(fname)
+  end,
 })
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
