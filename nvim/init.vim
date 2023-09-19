@@ -59,7 +59,7 @@ syntax sync minlines=256
 au BufNewFile,BufRead *.ejs set filetype=html
 
 set statusline=
-set statusline+=\ Vimmer\ \                          " fun name
+set statusline+=\ \ >>>\ FILE\:\ 
 set statusline+=%f\                                  " filename
 set statusline+=\[%{strlen(&ft)?&ft:'none'}]\        " file type
 set statusline+=%m                                   " modified flag
