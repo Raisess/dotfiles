@@ -2,8 +2,11 @@
 call plug#begin('~/.vim/plugged')
 
 " fuzzy
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+"Plug 'junegunn/fzf.vim'
+
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.3' }
 
 " colors
 Plug 'pantharshit00/vim-prisma'
@@ -92,12 +95,12 @@ noremap <silent> gb :tabprevious<CR>
 noremap <silent> <C-a> :Prettier<CR>
 noremap <silent> <C-b> :Explore<CR>
 noremap <silent> <C-f> :Vexplore<CR>
-noremap <silent> <C-n> :split term://zsh<CR>:set nonu<CR>
+noremap <silent> <C-n> :vsplit term://zsh<CR>:set nonu<CR>
 tnoremap <Esc> <C-\><C-n>
 
 " FZF
-noremap <silent> <C-p> :GFiles<CR>
-noremap <silent> <C-o> :W<CR>
+"noremap <silent> <C-p> :GFiles<CR>
+noremap <silent> <C-p> :Telescope find_files<CR>
 
 " LSP
 "noremap <silent> <C-k> :lua vim.lsp.diagnostic.goto_prev()<CR>
@@ -119,6 +122,17 @@ require("nvim-treesitter.configs").setup({
   highlight = {
     enable = true,
   }
+})
+
+require("telescope").setup({
+  defaults = {
+    file_ignore_patterns = {
+      "node%_modules/.*",
+      ".cargo/",
+      "lib/python3.11/",
+      "__pycache__"
+    }
+  },
 })
 
 require("mason").setup()
