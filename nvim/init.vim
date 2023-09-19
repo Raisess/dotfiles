@@ -169,6 +169,7 @@ local function on_attach(client, bufnr)
   vim.keymap.set("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
   vim.keymap.set("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
   vim.keymap.set("n", "gh", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
+  vim.keymap.set("n", "m", "<Cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 end
 
 local default_capabilities = cmp_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -207,5 +208,5 @@ nvim_lsp["tsserver"].setup({
   end,
 })
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
 EOF
