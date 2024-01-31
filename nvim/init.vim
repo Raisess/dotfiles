@@ -35,6 +35,7 @@ set expandtab
 set smarttab
 set cindent
 set autoindent
+set autoread
 set smartindent
 set background=dark
 set noerrorbells
