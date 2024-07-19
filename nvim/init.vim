@@ -5,9 +5,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-"Plug 'nvim-lua/plenary.nvim'
-"Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.3' }
-
 " colors
 Plug 'pantharshit00/vim-prisma'
 Plug 'morhetz/gruvbox'
@@ -57,13 +54,13 @@ set shortmess+=c
 set nocursorcolumn
 set nocursorline
 set norelativenumber
-set colorcolumn=120
+set colorcolumn=80
 syntax sync minlines=256
 
 au BufNewFile,BufRead *.ejs set filetype=html
 
 set statusline=
-set statusline+=\ \ >>>\ FILE\:\
+set statusline+=\ \ >>>\ FILE\:\ 
 set statusline+=%f\                                  " filename
 set statusline+=\[%{strlen(&ft)?&ft:'none'}]\        " file type
 set statusline+=%m                                   " modified flag
@@ -104,7 +101,6 @@ tnoremap <Esc> <C-\><C-n>
 
 " FZF
 noremap <silent> <C-p> :GFiles<CR>
-"noremap <silent> <C-p> :Telescope find_files<CR>
 
 " LSP
 "noremap <silent> <C-k> :lua vim.lsp.diagnostic.goto_prev()<CR>
@@ -179,9 +175,7 @@ local function on_attach(client, bufnr)
   vim.keymap.set("n", "m", "<Cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 end
 
-local default_capabilities = cmp_lsp.default_capabilities(
-  vim.lsp.protocol.make_client_capabilities()
-)
+local default_capabilities = cmp_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 nvim_lsp["clangd"].setup({
   capabilities = default_capabilities,
