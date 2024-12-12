@@ -21,7 +21,7 @@ Plug 'hrsh7th/nvim-cmp'
 
 call plug#end()
 
-language en_US
+" language en_US
 
 set mouse=a
 set signcolumn=yes
@@ -130,7 +130,6 @@ require("mason-lspconfig").setup()
 local cmp = require("cmp")
 local cmp_lsp = require("cmp_nvim_lsp")
 local nvim_lsp = require("lspconfig")
-local util = require("lspconfig.util")
 
 cmp.setup({
   formatting = {
@@ -177,11 +176,19 @@ end
 
 local default_capabilities = cmp_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
+nvim_lsp["ts_ls"].setup({
+  capabilities = default_capabilities,
+  on_attach = on_attach,
+  root_dir = function()
+    return vim.fn.getcwd()
+  end,
+})
+
 nvim_lsp["clangd"].setup({
   capabilities = default_capabilities,
   on_attach = on_attach,
-  root_dir = function(fname)
-    return util.find_git_ancestor(fname)
+  root_dir = function()
+    return vim.fn.getcwd()
   end,
   cmd = { "clangd", "-j=1", "--background-index", "--malloc-trim" },
 })
@@ -189,8 +196,8 @@ nvim_lsp["clangd"].setup({
 nvim_lsp["pylsp"].setup({
   capabilities = default_capabilities,
   on_attach = on_attach,
-  root_dir = function(fname)
-    return util.find_git_ancestor(fname)
+  root_dir = function()
+    return vim.fn.getcwd()
   end,
   cmd = { "jedi-language-server" },
 })
@@ -198,18 +205,23 @@ nvim_lsp["pylsp"].setup({
 nvim_lsp["rust_analyzer"].setup({
   capabilities = default_capabilities,
   on_attach = on_attach,
-  root_dir = function(fname)
-    return util.find_git_ancestor(fname)
+  root_dir = function()
+    return vim.fn.getcwd()
   end,
 })
 
-nvim_lsp["tsserver"].setup({
-  capabilities = default_capabilities,
-  on_attach = on_attach,
-  root_dir = function(fname)
-    return util.find_git_ancestor(fname)
-  end,
-})
+nvim_lsp["rust_analyzer"].diagnostics = {}
+nvim_lsp["rust_analyzer"].diagnostics.disabled = { "unliked-file" }
+
+for _, method in ipairs({ "textDocument/diagnostic", "workspace/diagnostic" }) do
+  local default_diagnostic_handler = vim.lsp.handlers[method]
+  vim.lsp.handlers[method] = function(err, result, context, config)
+    if err ~= nil and err.code == -32802 then
+        return
+    end
+    return default_diagnostic_handler(err, result, context, config)
+  end
+end
 
 -- vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
 EOF
