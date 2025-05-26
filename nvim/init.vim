@@ -13,7 +13,6 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " lsp
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/mason.nvim'
-Plug 'williamboman/mason-lspconfig.nvim'
 
 " cmp
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -115,6 +114,7 @@ inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
 
+let g:coc_enabled = 0
 set completeopt=menu,menuone,noselect
 
 lua <<EOF
@@ -125,7 +125,6 @@ require("nvim-treesitter.configs").setup({
 })
 
 require("mason").setup()
-require("mason-lspconfig").setup()
 
 local cmp = require("cmp")
 local cmp_lsp = require("cmp_nvim_lsp")
@@ -179,9 +178,7 @@ local default_capabilities = cmp_lsp.default_capabilities(vim.lsp.protocol.make_
 nvim_lsp["ts_ls"].setup({
   capabilities = default_capabilities,
   on_attach = on_attach,
-  root_dir = function()
-    return vim.fn.getcwd()
-  end,
+  root_markers = { 'package.json', '.git' },
 })
 
 nvim_lsp["clangd"].setup({
@@ -202,12 +199,12 @@ nvim_lsp["pylsp"].setup({
   cmd = { "jedi-language-server" },
 })
 
+--setup_language_server("rust_analyzer")
+
 nvim_lsp["rust_analyzer"].setup({
   capabilities = default_capabilities,
   on_attach = on_attach,
-  root_dir = function()
-    return vim.fn.getcwd()
-  end,
+  root_markers = { 'Cargo.toml', '.git' },
 })
 
 nvim_lsp["rust_analyzer"].diagnostics = {}
