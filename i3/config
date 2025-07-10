@@ -185,9 +185,41 @@ default_border pixel 3
 # workspace settings
 workspace_layout tabbed
 
+# color pallet
+set $red #cc241d
+set $green #98971a
+set $yellow #d79921
+set $blue #458588
+set $purple #b16286
+set $aqua #689d68
+set $gray #a89984
+set $brown #282828
+set $darkgray #1d2021
+set $lightgray #bdae93
+
+# client colors
+# class                 border|backgr|text|indicator|child_border
+client.focused          $aqua $aqua $darkgray $purple $aqua
+client.focused_inactive $darkgray $brown $lightgray $purple $darkgray
+client.unfocused        $darkgray $brown $lightgray $purple $darkgray
+client.urgent           $red $red $white $red $red
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
         position top
         status_command i3status
+
+        colors {
+                # bar background color
+                background $darkgray
+                # text color used for blocks that do not have a color specified.
+                statusline $lightgray
+                # workspaces section
+                #                    border  backgr. text
+                focused_workspace    $aqua $aqua $darkgray
+                inactive_workspace   $lightgray $darkgray $lightgray
+                active_workspace     $lightgray $darkgray $lightgray
+                urgent_workspace     $red $red $white
+        }
 }
