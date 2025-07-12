@@ -183,7 +183,7 @@ bindsym $mod+r mode "resize"
 default_border pixel 3
 
 # workspace settings
-workspace_layout tabbed
+#workspace_layout split
 
 # color pallet
 set $red #cc241d
@@ -199,9 +199,9 @@ set $lightgray #bdae93
 
 # client colors
 # class                 border|backgr|text|indicator|child_border
-client.focused          $aqua $aqua $darkgray $purple $aqua
-client.focused_inactive $darkgray $brown $lightgray $purple $darkgray
-client.unfocused        $darkgray $brown $lightgray $purple $darkgray
+client.focused          $aqua $aqua $darkgray $aqua $aqua
+client.focused_inactive $darkgray $brown $lightgray $aqua $darkgray
+client.unfocused        $darkgray $brown $lightgray $aqua $darkgray
 client.urgent           $red $red $white $red $red
 
 # Start i3bar to display a workspace bar (plus the system information i3status
