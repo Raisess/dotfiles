@@ -182,46 +182,35 @@ cmp.setup({
   }
 })
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local default_capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "typescript",
-  callback = function()
-    vim.lsp.enable("ts_ls")
-    vim.lsp.config("ts_ls", {
-      cmd = { "typescript-language-server" },
-      filetypes = { "typescript", "javascript" },
-      capabilities = capabilities,
-    })
-    vim.lsp.start("ts_ls")
-  end,
-})
+local lsp_configs = {
+  {
+    name = "ts_ls",
+    command = "typescript-language-server",
+    root_markers = { "package.json", ".git" },
+  },
+  {
+    name = "jedi_language_server",
+    command = "jedi-language-server",
+    root_markers = { "requirements.txt", ".git" },
+  },
+  {
+    name = "rust_analyzer",
+    command = "rust-analyzer",
+    root_markers = { "Cargo.toml", ".git" },
+  }
+}
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "python",
-  callback = function()
-    vim.lsp.enable("jedi_language_server")
-    vim.lsp.config("jedi_language_server", {
-      cmd = { "jedi-language-server" },
-      filetypes = { "python" },
-      capabilities = capabilities,
-    })
-    vim.lsp.start("jedi_language_server")
-  end,
-})
+for _, config in ipairs(lsp_configs) do
+  vim.lsp.config(config["name"], {
+    cmd = { config["command"] },
+    root_markers = config["root_markers"],
+    capabilities = default_capabilities,
+  })
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "rust",
-  callback = function()
-    vim.lsp.enable("rust_analyzer")
-    vim.lsp.config("rust_analyzer", {
-      cmd = { "rust-analyzer" },
-      filetypes = { "rust" },
-      capabilities = capabilities,
-    })
-    vim.lsp.start("rust_analyzer")
-  end,
-})
+  vim.lsp.enable(config["name"])
+end
 
 for _, method in ipairs({ "textDocument/diagnostic", "workspace/diagnostic" }) do
   local default_diagnostic_handler = vim.lsp.handlers[method]
