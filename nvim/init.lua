@@ -187,24 +187,24 @@ local default_capabilities = require("cmp_nvim_lsp").default_capabilities()
 local lsp_configs = {
   {
     name = "ts_ls",
-    command = "typescript-language-server",
+    command = { "typescript-language-server", "--stdio" },
     root_markers = { "package.json", ".git" },
   },
   {
     name = "jedi_language_server",
-    command = "jedi-language-server",
+    command = { "jedi-language-server" },
     root_markers = { "requirements.txt", ".git" },
   },
   {
     name = "rust_analyzer",
-    command = "rust-analyzer",
+    command = { "rust-analyzer" },
     root_markers = { "Cargo.toml", ".git" },
   }
 }
 
 for _, config in ipairs(lsp_configs) do
   vim.lsp.config(config["name"], {
-    cmd = { config["command"] },
+    cmd = config["command"],
     root_markers = config["root_markers"],
     capabilities = default_capabilities,
   })
