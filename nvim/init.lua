@@ -28,7 +28,6 @@ require("packer").startup(function(use)
   -- colorschemes
   use "pantharshit00/vim-prisma"
   use "morhetz/gruvbox"
-  use "nvim-treesitter/nvim-treesitter"
 
   -- lsp
   use "neovim/nvim-lspconfig"
@@ -97,7 +96,7 @@ vim.g.fzf_preview_window = {}
 
 vim.g.gruvbox_contrast_dark = "hard"
 vim.g.gruvbox_invert_selection = "0"
-vim.cmd.colorscheme("gruvbox")
+vim.cmd.colorscheme("wildcharm")
 
 if not vim.fn.has("gui_running") then
   vim.o.t_Co = 256
@@ -141,12 +140,6 @@ vim.keymap.set("n", "m", vim.diagnostic.goto_next, { noremap = true, silent = tr
 
 -- Completion options
 vim.o.completeopt = "menu,menuone,noselect"
-
-require("nvim-treesitter.configs").setup({
-  highlight = {
-    enable = true,
-  }
-})
 
 require("mason").setup()
 
