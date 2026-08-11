@@ -27,7 +27,7 @@ require("packer").startup(function(use)
 
   -- colorschemes
   use "pantharshit00/vim-prisma"
-  use "morhetz/gruvbox"
+  --use "morhetz/gruvbox"
 
   -- lsp
   use "neovim/nvim-lspconfig"
