@@ -191,3 +191,6 @@ bar {
         position top
         status_command i3status
 }
+
+# Setup polkit for virt-manager
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1

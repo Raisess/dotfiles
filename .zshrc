@@ -105,3 +105,5 @@ source $ZSH/oh-my-zsh.sh
 
 alias vim="nvim"
 alias fly="/home/danilo/.fly/bin/flyctl"
+export PATH="$HOME/.opencode/bin:$PATH"
+export PATH="$HOME/.opencode/bin:$PATH"
