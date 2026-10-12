@@ -107,3 +107,5 @@ alias vim="nvim"
 alias fly="/home/danilo/.fly/bin/flyctl"
 export PATH="$HOME/.opencode/bin:$PATH"
 export PATH="$HOME/.opencode/bin:$PATH"
+
+. "$HOME/.local/bin/env"
