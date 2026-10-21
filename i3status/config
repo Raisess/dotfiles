@@ -1,0 +1,50 @@
+general {
+    colors = true
+    interval = 5
+    color_good = "#a6e3a1"
+    color_degraded = "#f9e2af"
+    color_bad = "#f38ba8"
+}
+
+order += "ipv6"
+order += "wireless _first_"
+order += "ethernet _first_"
+order += "cpu_temperature 0"
+order += "memory"
+order += "disk /"
+order += "load"
+order += "tztime local"
+
+wireless _first_ {
+    format_up = "Wi-Fi: %ip"
+    format_down = "Wi-Fi: down"
+}
+
+ethernet _first_ {
+    format_up = "IP: %ip"
+    format_down = "Ethernet: down"
+}
+
+cpu_temperature 0 {
+    format = "CPU: %degrees°C"
+    path = "/sys/class/hwmon/hwmon1/temp1_input"
+    max_threshold = 80
+}
+
+memory {
+    format = "RAM: %used / %total"
+    threshold_degraded = "30%"
+    threshold_critical = "15%"
+}
+
+disk "/" {
+    format = "Disk: %free free"
+}
+
+load {
+    format = "Load: %5min"
+}
+
+tztime local {
+    format = "%Y-%m-%d %H:%M"
+}

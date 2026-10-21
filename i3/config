@@ -194,3 +194,9 @@ bar {
 
 # Setup polkit for virt-manager
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+# Selecionar região e salvar em arquivo
+bindsym $mod+Shift+s exec --no-startup-id maim -s ~/Pictures/screenshot-$(date +%F_%H-%M-%S).png
+
+# Selecionar região e copiar para clipboard
+bindsym $mod+Ctrl+s exec --no-startup-id maim -s | xclip -selection clipboard -t image/png
