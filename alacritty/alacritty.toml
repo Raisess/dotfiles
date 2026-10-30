@@ -1,0 +1,50 @@
+[font.normal]
+family = "Source Code Pro"
+style = "Regular"
+
+[font.bold]
+family = "Source Code Pro"
+style = "Bold"
+
+[font.italic]
+family = "Source Code Pro"
+style = "Italic"
+
+[font.bold_italic]
+family = "Source Code Pro"
+style = "Bold Italic"
+
+[cursor]
+style = { shape = "Block", blinking = "On" }
+
+[colors.primary]
+background = "#000000"
+foreground = "#cccccc"
+
+[colors.cursor]
+text = "#0c0c0c"
+cursor = "#cccccc"
+
+[colors.selection]
+text = "#ffffff"
+background = "#264f78"
+
+[colors.normal]
+black   = "#0c0c0c"
+red     = "#c50f1f"
+green   = "#13a10e"
+yellow  = "#c19c00"
+blue    = "#0037da"
+magenta = "#881798"
+cyan    = "#3a96dd"
+white   = "#cccccc"
+
+[colors.bright]
+black   = "#767676"
+red     = "#e74856"
+green   = "#16c60c"
+yellow  = "#f9f1a5"
+blue    = "#3b78ff"
+magenta = "#b4009e"
+cyan    = "#61d6d6"
+white   = "#f2f2f2"
